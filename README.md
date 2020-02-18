@@ -1,5 +1,6 @@
-# TelegramBot
-raspberry-pi based TelegramBot
+# Food Picker Bot
 
+## Commands
+/food -> get food
 
-Full Documenation here :-  https://www.hackster.io/Salman_faris_vp/telegram-bot-with-raspberry-pi-f373da
+### todo documentation lol
