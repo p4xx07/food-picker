@@ -1,6 +1,4 @@
 from random import randint
-from datetime import datetime
-
 def readRestaurants(path) -> {}:
     dictionary = {}
     with open(path) as f:
@@ -11,18 +9,6 @@ def readRestaurants(path) -> {}:
             dictionary[int(i)] = res
             i += 1
     return dictionary
-
-def canSendFoodGif():
-    now = datetime.now()
-    weekday = now.weekday()
-    if(weekday == 5 or weekday == 6):
-        return -1
-    hour = int(now.strftime("%H"))
-    minute = int(now.strftime("%M"))
-    second = int(now.strftime("%S"))
-
-    return -1
-    return 1
     
 class RestaurantFactory():
     def __init__(self, path):

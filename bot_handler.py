@@ -30,8 +30,6 @@ class Handler():
             self.bot.sendMessage(chat_id, 'Not a valid command. Try asking for food!')
         
     def sendFoodGif(self):
-        if(not restaurant.canSendFoodGif()):
-            return
         self.log.logInfo(f'Sending food gif!\tchat_id\t{self.config.chat_id}\turl\t{self.config.gif_url}')
         self.bot.sendVideo(self.config.chat_id, self.config.gif_url)
     
