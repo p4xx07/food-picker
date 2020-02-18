@@ -24,15 +24,15 @@ class Handler():
         self.log.logInfo(f'Message\t{message}\tChatType\t{chat_type}\tChatId\t{chat_id}')        
         
         if message == '/food':
-            self.sendFoodMessage()
+            self.sendFoodMessage(chat_id)
         else:
             self.bot.sendMessage(chat_id, 'Not a valid command. Try asking for food!')
         
     def sendFoodGif(self):
         self.log.logInfo(f'Sending food gif!\tchat_id\t{self.config.chat_id}\turl\t{self.config.gif_url}')
         self.bot.sendVideo(self.config.chat_id, self.config.gif_url)
-        self.sendFoodMessage()
+        self.sendFoodMessage(self.config.chat_id)
         
-    def sendFoodMessage(self):
+    def sendFoodMessage(self, chat_id):
         food = self.restaurantFactory.getFood()
-        self.bot.sendMessage(self.config.chat_id, food)
+        self.bot.sendMessage(chat_id, food)
