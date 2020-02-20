@@ -23,7 +23,7 @@ class Handler():
 
         self.log.logInfo(f'Message\t{message}\tChatType\t{chat_type}\tChatId\t{chat_id}')        
         
-        if message == '/food':
+        if '/food' in message:
             self.sendFoodMessage(chat_id)
         else:
             self.bot.sendMessage(chat_id, 'Not a valid command. Try asking for food!')
