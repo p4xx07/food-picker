@@ -13,7 +13,7 @@ class Logger():
         if(not os.path.exists(filename)):
             f = open(filename, "w")
             f.close()        
-        logging.basicConfig(filename = filename, level = level)
+        logging.basicConfig(filename = filename, level = level, datefmt='%Y-%m-%d %H:%M:%S', format=FORMAT)
 
     def log(self, message, level):
         logging.log(level, message)
