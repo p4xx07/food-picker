@@ -9,7 +9,7 @@ def readConfig(path) -> {}:
 class Config():
     def __init__(self, path):
         self.path = path
-        config_path = f'{path}/config/config.dat'
+        config_path = "/etc/food-picker/config.dat"
         config_dictionary = readConfig(config_path)
 
         self.token = config_dictionary["token"]
