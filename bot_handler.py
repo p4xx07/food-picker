@@ -25,7 +25,7 @@ class Handler():
         
         if '/food' in message:
             self.sendFoodMessage(chat_id)
-        if '/fact' in message:
+        elif '/fact' in message:
             self.sendRandomFact(chat_id)
         else:
             self.bot.sendMessage(chat_id, 'Not a valid command. Try asking for food!')
