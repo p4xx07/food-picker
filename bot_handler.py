@@ -25,6 +25,8 @@ class Handler():
         
         if '/food' in message:
             self.sendFoodMessage(chat_id)
+        if '/fact' in message:
+            self.sendRandomFact(chat_id)
         else:
             self.bot.sendMessage(chat_id, 'Not a valid command. Try asking for food!')
         
@@ -36,3 +38,9 @@ class Handler():
     def sendFoodMessage(self, chat_id):
         food = self.restaurantFactory.getFood()
         self.bot.sendMessage(chat_id, food)
+
+    def sendRandomFact(self, chat_id):
+        import requests
+        f = requests.get('https://uselessfacts.jsph.pl/random.txt')
+        print(str(f))
+        self.bot.sendMessage(chat_id, str(f))
