@@ -1,10 +1,5 @@
-import datetime
+import requests
+f = requests.get('https://uselessfacts.jsph.pl/random.txt?language=en')
 
-now = datetime.datetime.now()
-
-mid_day = datetime.datetime(now.year, now.month, now.day, 12, 30)
-print(str(mid_day))
-
-diff = now - mid_day
-
-print(str(diff))
+print(f.text)
+print(f.text.split("\n")[0])
