@@ -1,5 +1,7 @@
-import requests
-f = requests.get('https://uselessfacts.jsph.pl/random.txt?language=en')
-text = f.text.split("\n")[0]
-text = text.replace("> ", "")
-print(text)
+
+path= "config/exclamations.dat"
+with open(path, encoding="utf8") as f:
+    for line in f:
+        index = line.index(":")
+        line = line.replace('\n', "")
+        print(line[:index])

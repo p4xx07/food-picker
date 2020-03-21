@@ -6,6 +6,7 @@ from logger import Logger
 from telepot import Bot
 from telepot.loop import MessageLoop
 from restaurant import RestaurantFactory
+from exclamation import ExclamationFactory
 
 class Handler():
     def __init__(self, bot: Bot, config: Config, log: Logger):
@@ -13,6 +14,7 @@ class Handler():
         self.config = config
         self.log = log
         self.restaurantFactory = RestaurantFactory(config.path)
+        self.exclamationFactory = ExclamationFactory(config.path)
 
     def handle(self, msg):
         content_type, chat_type, chat_id = telepot.glance(msg)
@@ -28,7 +30,7 @@ class Handler():
         elif '/fact' in message:
             self.sendRandomFact(chat_id)
         else:
-            self.bot.sendMessage(chat_id, 'Not a valid command. Try asking for food!')
+            self.sendExclamation(chat_id)
         
     def sendFoodGif(self):
         self.log.logInfo(f'Sending food gif!\tchat_id\t{self.config.chat_id}\turl\t{self.config.gif_url}')
@@ -47,3 +49,7 @@ class Handler():
         text = text.replace("> ", "")
         self.log.logInfo(text)
         self.bot.sendMessage(chat_id, text)
+
+    def sendExclamation(self, chat_id):
+        exclamation = self.exclamationFactory.getExclamation()
+        self.bot.sendMessage(chat_id, exclamation)

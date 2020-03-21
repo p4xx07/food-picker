@@ -1,5 +1,5 @@
 from random import randint
-def readRestaurants(path) -> {}:
+def readExclamations(path) -> {}:
     dictionary = {}
     with open(path, encoding="utf8") as f:
         i = 0
@@ -10,11 +10,11 @@ def readRestaurants(path) -> {}:
             i += 1
     return dictionary
     
-class RestaurantFactory():
+class ExclamationFactory():
     def __init__(self, path):
-        full_path = f'{path}/config/restaurants.dat'
-        self.dictionary = readRestaurants(full_path)
+        full_path = f'{path}/config/exclamations.dat'
+        self.dictionary = readExclamations(full_path)
 
-    def getFood(self):
+    def getExclamation(self):
         random = randint(0, len(self.dictionary) - 1)
         return self.dictionary[random]
