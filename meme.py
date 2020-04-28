@@ -25,19 +25,19 @@ def getMemeImage(memeID):
  
 def drawText(draw, x, y, text, font, color, shadow):
     # thin border
-    draw.text((x-1, y), text, fill=shadow)
-    draw.text((x+1, y), text, fill=shadow)
-    draw.text((x, y-1), text, fill=shadow)
-    draw.text((x, y+1), text, fill=shadow)
+    draw.text((x-1, y), text, fill=shadow, font=font)
+    draw.text((x+1, y), text, fill=shadow, font=font)
+    draw.text((x, y-1), text, fill=shadow, font=font)
+    draw.text((x, y+1), text, fill=shadow, font=font)
 
     # thicker border
-    draw.text((x-1, y-1), text, fill=shadow)
-    draw.text((x+1, y-1), text, fill=shadow)
-    draw.text((x-1, y+1), text, fill=shadow)
-    draw.text((x+1, y+1), text, fill=shadow)
+    draw.text((x-1, y-1), text, fill=shadow, font=font)
+    draw.text((x+1, y-1), text, fill=shadow, font=font)
+    draw.text((x-1, y+1), text, fill=shadow, font=font)
+    draw.text((x+1, y+1), text, fill=shadow, font=font)
 
     #normal    
-    draw.text((x, y), text, fill=color)
+    draw.text((x, y), text, fill=color, font=font)
 
 
 def wrap_by_word(s, n):
@@ -52,14 +52,14 @@ def getImageWithText(content, top, bottom):
     with io.BytesIO(content) as f:
         img = Image.open(f)
         draw = ImageDraw.Draw(img)
-        #font = ImageFont.truetype("arial.ttf", 25)
+        font = ImageFont.truetype("Impact.ttf", 25)
         width, height = img.size
         shadow = "black"
         color = "white"
         top = wrap_by_word(top, 6)
         bottom =  wrap_by_word(bottom, 6)
-        drawText(draw, 10, 15, top, "", color, shadow)
-        drawText(draw, 10, height - 100, bottom, "", color, shadow)
+        drawText(draw, 10, 15, top, font, color, shadow)
+        drawText(draw, 10, height - 100, bottom, font, color, shadow)
         return img
 
 def generateMeme():
