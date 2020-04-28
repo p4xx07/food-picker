@@ -52,7 +52,7 @@ def getImageWithText(content, top, bottom):
     with io.BytesIO(content) as f:
         img = Image.open(f)
         draw = ImageDraw.Draw(img)
-        font = ImageFont.truetype("Impact.ttf", 25)
+        font = ImageFont.truetype("Impact.ttf", 35)
         width, height = img.size
         shadow = "black"
         color = "white"
