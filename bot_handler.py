@@ -64,4 +64,3 @@ class Handler():
         image.save("img.png")
         file = open('img.png', 'rb')
         self.bot.sendPhoto(chat_id, photo=file)
-        os.remove(file)
