@@ -5,7 +5,6 @@ def readExclamations(path) -> {}:
         i = 0
         for line in f:
             res = line.replace('\n', '')
-            print(res)
             dictionary[int(i)] = res
             i += 1
     return dictionary
