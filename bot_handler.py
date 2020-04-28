@@ -1,6 +1,8 @@
 import time
 import telepot
+import requests
 import restaurant
+import meme
 from config import Config
 from logger import Logger
 from telepot import Bot
@@ -29,6 +31,8 @@ class Handler():
             self.sendFoodMessage(chat_id)
         elif '/fact' in message:
             self.sendRandomFact(chat_id)
+        elif '/meme' in message:
+            self.sendRandomMeme(chat_id)
         else:
             self.sendExclamation(chat_id)
         
@@ -36,14 +40,14 @@ class Handler():
         self.log.logInfo(f'Sending food gif!\tchat_id\t{self.config.chat_id}\turl\t{self.config.gif_url}')
         self.bot.sendVideo(self.config.chat_id, self.config.gif_url)
         #self.sendFoodMessage(self.config.chat_id)
-        self.sendRandomFact(self.config.chat_id)
+        #self.sendRandomFact(self.config.chat_id)
+        self.sendRandomMeme(self.config.chat_id)
 
     def sendFoodMessage(self, chat_id):
         food = self.restaurantFactory.getFood()
         self.bot.sendMessage(chat_id, food)
 
     def sendRandomFact(self, chat_id):
-        import requests
         f = requests.get('https://uselessfacts.jsph.pl/random.txt?language=en')
         text = f.text.split("\n")[0]
         text = text.replace("> ", "")
@@ -53,3 +57,7 @@ class Handler():
     def sendExclamation(self, chat_id):
         exclamation = self.exclamationFactory.getExclamation()
         self.bot.sendMessage(chat_id, exclamation)
+
+    def sendRandomMeme(self, chat_id):
+        image = meme.generateMeme()
+        self.bot.sendPhoto(chat_id, image)
