@@ -50,18 +50,17 @@ def wrap_by_word(s, n):
 
 def getImageWithText(content, top, bottom):
     with io.BytesIO(content) as f:
-        with Image.open(f) as img:
-            draw = ImageDraw.Draw(img)
-            #font = ImageFont.truetype("arial.ttf", 25)
-
-            width, height = img.size
-            shadow = "black"
-            color = "white"
-            top = wrap_by_word(top, 6)
-            bottom =  wrap_by_word(bottom, 6)
-            drawText(draw, 10, 15, top, "", color, shadow)
-            drawText(draw, 10, height - 100, bottom, "", color, shadow)
-            return img
+        img = Image.open(f)
+        draw = ImageDraw.Draw(img)
+        #font = ImageFont.truetype("arial.ttf", 25)
+        width, height = img.size
+        shadow = "black"
+        color = "white"
+        top = wrap_by_word(top, 6)
+        bottom =  wrap_by_word(bottom, 6)
+        drawText(draw, 10, 15, top, "", color, shadow)
+        drawText(draw, 10, height - 100, bottom, "", color, shadow)
+        return img
 
 def generateMeme():
     submission = getSubmission()
