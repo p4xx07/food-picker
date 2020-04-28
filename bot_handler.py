@@ -3,6 +3,7 @@ import telepot
 import requests
 import restaurant
 import meme
+import os
 from config import Config
 from logger import Logger
 from telepot import Bot
@@ -60,4 +61,7 @@ class Handler():
 
     def sendRandomMeme(self, chat_id):
         image = meme.generateMeme()
-        self.bot.sendPhoto(chat_id, image)
+        image.save("img.png")
+        file = open('img.png', 'rb')
+        self.bot.sendPhoto(chat_id, photo=file)
+        os.remove(file)
