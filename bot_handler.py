@@ -4,6 +4,7 @@ import requests
 import restaurant
 import meme
 import os
+import re
 from config import Config
 from logger import Logger
 from telepot import Bot
@@ -34,6 +35,12 @@ class Handler():
             self.sendRandomFact(chat_id)
         elif '/meme' in message:
             self.sendRandomMeme(chat_id)
+        elif '/roll':
+            num = re.search(r"\d+", message)
+            if num is not None:
+                return
+            sides = message[num.start():num.end()]
+            self.sendRoll(chat_id, int(sides))
         else:
             self.sendExclamation(chat_id)
         
@@ -64,3 +71,14 @@ class Handler():
         image.save("img.png")
         file = open('img.png', 'rb')
         self.bot.sendPhoto(chat_id, photo=file)
+
+    def sendRoll(self, chat_id, sides: int):
+        import roll
+        value = roll.roll(sides)
+        self.log.logInfo(str(value))
+        self.bot.sendMessage(chat_id, str(value))
+
+        if(value == 20):
+            self.bot.sendMessage(chat_id, "CRITICALLLLL!!!!")
+        elif(value == 1):
+            self.bot.sendMessage(chat_id, "RIP")
