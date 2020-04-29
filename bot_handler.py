@@ -79,7 +79,7 @@ class Handler():
         self.log.logInfo(str(value))
         self.bot.sendMessage(chat_id, str(value))
 
-        if(value == 20):
+        if(value == sides):
             self.bot.sendMessage(chat_id, "CRITICALLLLL!!!!")
         elif(value == 1):
             self.bot.sendMessage(chat_id, "RIP")
