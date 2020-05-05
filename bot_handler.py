@@ -35,7 +35,7 @@ class Handler():
             self.sendRandomFact(chat_id)
         elif '/meme' in message:
             self.sendRandomMeme(chat_id)
-        elif '/roll':
+        elif '/roll' in message:
             num = re.search(r"\d+", message)
             if num is None:
                 self.sendRoll(chat_id, 20)
