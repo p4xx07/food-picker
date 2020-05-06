@@ -42,6 +42,8 @@ class Handler():
                 return
             sides = message[num.start():num.end()]
             self.sendRoll(chat_id, int(sides))
+        elif '/joke' in message:
+            self.sendRandomJoke(chat_id)
         else:
             self.sendExclamation(chat_id)
         
@@ -50,7 +52,8 @@ class Handler():
         self.bot.sendVideo(self.config.chat_id, self.config.gif_url)
         #self.sendFoodMessage(self.config.chat_id)
         #self.sendRandomFact(self.config.chat_id)
-        self.sendRandomMeme(self.config.chat_id)
+        #self.sendRandomMeme(self.config.chat_id)
+        self.sendRandomJoke(self.config.chat_id)
 
     def sendFoodMessage(self, chat_id):
         food = self.restaurantFactory.getFood()
@@ -83,3 +86,9 @@ class Handler():
             self.bot.sendMessage(chat_id, "CRITICALLLLL!!!!")
         elif(value == 1):
             self.bot.sendMessage(chat_id, "RIP")
+
+    def sendRandomJoke(self, chat_id):
+        import joke
+        value = joke.getRandomJoke()
+        self.log.logInfo(str(value))
+        self.bot.sendMessage(chat_id, str(value))
