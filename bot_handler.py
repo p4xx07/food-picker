@@ -44,6 +44,8 @@ class Handler():
             self.sendRoll(chat_id, int(sides))
         elif '/joke' in message:
             self.sendRandomJoke(chat_id)
+        elif '/tree' in message:
+            self.sendRandomTree(chat_id)
         else:
             self.sendExclamation(chat_id)
         
@@ -75,6 +77,12 @@ class Handler():
         image.save("img.png")
         file = open('img.png', 'rb')
         self.bot.sendPhoto(chat_id, photo=file)
+
+    def sendRandomTree(self, chat_id):
+        import draw
+        draw.generateTree()
+        file = open('img/tree.gif', 'rb')
+        self.bot.sendVideo(chat_id, video=file)
 
     def sendRoll(self, chat_id, sides: int):
         import roll
