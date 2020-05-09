@@ -34,7 +34,7 @@ def draw(line, height, angle, screen):
     pygame.display.update()
     global iteration
     iteration += 1
-    pygame.image.save(screen,"img/img"+str(iteration)+".jpg")
+    pygame.image.save(screen,"/home/pi/Documents/food-picker/img/img"+str(iteration)+".jpg")
 
     height *=  randint(50, 80) / 100
     xAngle = angle + randint(10,45)
@@ -46,7 +46,7 @@ def draw(line, height, angle, screen):
 
 def join():
     import os
-    os.system("sudo ffmpeg -y -f image2 -i img/img%d.jpg img/tree.gif")
+    os.system("sudo ffmpeg -y -f image2 -i /home/pi/Documents/food-picker/img/img%d.jpg /home/pi/Documents/food-picker/img/tree.gif")
 
 def generateTree():
     init()
