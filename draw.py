@@ -46,7 +46,7 @@ def draw(line, height, angle, screen):
 
 def join():
     import os
-    os.system("sudo ffmpeg -f image2 -i img/img%d.jpg tree.gif")
+    os.system("sudo ffmpeg -y -f image2 -i img/img%d.jpg img/tree.gif")
 
 def generateTree():
     init()
