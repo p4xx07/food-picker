@@ -118,5 +118,5 @@ class Handler():
         self.bot.sendMessage(chat_id, str(value))
 
     def sendTrimToGif(self, chat_id):
-        file = open('img/tree.gif', 'output.gif')
+        file = open('output.gif', 'rb')
         self.bot.sendVideo(chat_id, video=file)
