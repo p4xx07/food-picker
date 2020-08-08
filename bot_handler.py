@@ -13,6 +13,8 @@ from telepot.loop import MessageLoop
 from restaurant import RestaurantFactory
 from exclamation import ExclamationFactory
 from config import getConfig
+import telegram
+
 
 class Handler():
     def __init__(self, bot: Bot):
@@ -68,13 +70,10 @@ class Handler():
             self.sendTextMessage(chat_id, "Not enough params!")
             return
 
-        self.bot.sendChatAction(chat_id=chat_id, action=telegram.ChatAction.UPLOAD_PHOTO)
-        download.downloadVideo(self.token, video["file_id"], r"video.mp4")
-
         caption = "0 10"
         if 'caption' in msg:
             caption = msg['caption']
-
+        
         split = caption.split()
         start = int(split[0])
         end = int(split[1])
@@ -90,8 +89,10 @@ class Handler():
         if int(video["duration"]) < end:
             end = int(video["duration"])
 
+        self.bot.sendChatAction(chat_id=chat_id, action=telegram.ChatAction.UPLOAD_PHOTO)
+        download.downloadVideo(self.token, video["file_id"], r"video.mp4")
         trim.trimVideoToGif("video.mp4", start, end)
-        self.sendTrimToGif(chat_id)
+        self.sendTrimToGif(chat_id, "output.gif")
 
     def sendFoodGif(self):
         self.bot.sendVideo(self.chat_id, self.gif_url)
@@ -105,7 +106,6 @@ class Handler():
         self.bot.sendMessage(chat_id, food)
 
     def sendTextMessage(self, chat_id, message):
-        food = self.restaurantFactory.getFood()
         self.bot.sendMessage(chat_id, message)
 
     def sendRandomFact(self, chat_id):
@@ -145,6 +145,7 @@ class Handler():
         value = joke.getRandomJoke()
         self.bot.sendMessage(chat_id, str(value))
 
-    def sendTrimToGif(self, chat_id):
-        file = open('output.gif', 'rb')
+    def sendTrimToGif(self, chat_id, path):
+        file = open(path, 'rb')
         self.bot.sendDocument(chat_id, document=file)
+        os.remove(path)
