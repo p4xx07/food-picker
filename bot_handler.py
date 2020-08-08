@@ -119,4 +119,4 @@ class Handler():
 
     def sendTrimToGif(self, chat_id):
         file = open('output.gif', 'rb')
-        self.bot.sendVideo(chat_id, video=file)
+        self.bot.sendAnimation(chat_id, animation=file)
