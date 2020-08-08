@@ -13,6 +13,8 @@ from telepot.loop import MessageLoop
 from restaurant import RestaurantFactory
 from exclamation import ExclamationFactory
 from config import getConfig
+import telegram
+
 
 class Handler():
     def __init__(self, bot: Bot):
@@ -63,10 +65,34 @@ class Handler():
 
         chat_id = msg['chat']['id']
         video = msg['video']
-       # caption = msg['caption']
 
+        if int(video["file_size"]) > 3221225472: #3GB
+            self.sendTextMessage(chat_id, "Not enough params!")
+            return
+
+        self.bot.sendChatAction(chat_id=chat_id, action=telegram.ChatAction.UPLOAD_PHOTO)
         download.downloadVideo(self.token, video["file_id"], r"video.mp4")
-        trim.trimVideoToGif("video.mp4", 1,2)
+
+        caption = "0 10"
+        if 'caption' in msg:
+            caption = msg['caption']
+
+        split = caption.split()
+        start = int(split[0])
+        end = int(split[1])
+
+        if len(split) != 2:
+            self.sendTextMessage(chat_id, "Not enough params!")
+            return
+
+        if start < 0 or end < 0 or end - start < 0 or end - start > 10:
+            self.sendTextMessage(chat_id, "Invalid params! Max 10 seconds of gif!")
+            return
+
+        if int(video["duration"]) < end:
+            end = int(video["duration"])
+
+        trim.trimVideoToGif("video.mp4", start, end)
         self.sendTrimToGif(chat_id)
 
     def sendFoodGif(self):
@@ -79,6 +105,10 @@ class Handler():
     def sendFoodMessage(self, chat_id):
         food = self.restaurantFactory.getFood()
         self.bot.sendMessage(chat_id, food)
+
+    def sendTextMessage(self, chat_id, message):
+        food = self.restaurantFactory.getFood()
+        self.bot.sendMessage(chat_id, message)
 
     def sendRandomFact(self, chat_id):
         f = requests.get('https://uselessfacts.jsph.pl/random.txt?language=en')
@@ -119,4 +149,4 @@ class Handler():
 
     def sendTrimToGif(self, chat_id):
         file = open('output.gif', 'rb')
-        self.bot.sendPhoto(chat_id, photo=file)
+        self.bot.sendDocument(chat_id, document=file)
