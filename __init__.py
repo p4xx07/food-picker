@@ -1,22 +1,32 @@
 import os, inspect
 import telepot
-import main
-from logger import Logger
-from config import Config
+from bot_handler import Handler
 from telepot import Bot
+from telepot.loop import MessageLoop
+import bot_handler
+import datetime
+import time
+from config import getConfig
 
-def getBot(token) -> Bot:
-    return telepot.Bot(token)
+def start(bot: Bot):
+    handler = Handler(bot)
+    MessageLoop(bot, handler.handle).run_as_thread()
 
-def getConfig(working_path) -> Config:
-    return Config(working_path)
+    while True:
+        if canSendFoodGif():
+            handler.sendFoodGif()
+        time.sleep(30)
 
-def getLog(working_path) -> Logger:
-    fullpath = f'{working_path}/log/logfile.log'
-    return Logger(fullpath)
+def canSendFoodGif() -> bool:
+    now = datetime.datetime.now()
+    weekday = now.weekday()
+    if(weekday >= 5):
+        return False
+    mid_day = datetime.datetime(now.year, now.month, now.day, 12, 30)    
+    diff_seconds = (now - mid_day).total_seconds()    
+    return diff_seconds > 0 and diff_seconds <= 32
 
-path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-log = getLog(path)
-config = getConfig(path)
-bot = getBot(config.token)
-main.start(bot, config, log)
+config = getConfig()
+bot = telepot.Bot(config[0])
+start(bot)
+

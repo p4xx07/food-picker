@@ -1,3 +1,4 @@
+import os
 def readConfig(path) -> {}:
     d = {}
     with open(path) as f:
@@ -6,13 +7,16 @@ def readConfig(path) -> {}:
             d[key] = val.replace('\n', '')
     return d
 
-class Config():
-    def __init__(self, path):
-        self.path = path
-        config_path = "/etc/food-picker/config.dat"
-        config_dictionary = readConfig(config_path)
+def getConfig(): 
+    config_path = "/etc/food-picker/config.dat"
 
-        self.token = config_dictionary["token"]
-        self.gif_url = config_dictionary["gif_url"]
-        self.chat_id = config_dictionary["chat_id"]
+    if os.name == 'nt':
+        config_path = r'C:\Users\pc\Documents\etc\food-picker\config.dat'
 
+    config_dictionary = readConfig(config_path)
+
+    token = config_dictionary["token"]
+    gif_url = config_dictionary["gif_url"]
+    chat_id = config_dictionary["chat_id"]
+    
+    return (token, gif_url, chat_id)

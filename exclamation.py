@@ -1,4 +1,5 @@
 from random import randint
+import os
 def readExclamations(path) -> {}:
     dictionary = {}
     with open(path, encoding="utf8") as f:
@@ -10,8 +11,12 @@ def readExclamations(path) -> {}:
     return dictionary
     
 class ExclamationFactory():
-    def __init__(self, path):
-        full_path = f'{path}/config/exclamations.dat'
+    def __init__(self):
+        full_path = '/etc/food-picker/exclamations.dat'
+
+        if os.name == 'nt':
+            full_path = 'C:/Users/pc/Documents/etc/food-picker/exclamations.dat'
+
         self.dictionary = readExclamations(full_path)
 
     def getExclamation(self):
