@@ -13,8 +13,6 @@ from telepot.loop import MessageLoop
 from restaurant import RestaurantFactory
 from exclamation import ExclamationFactory
 from config import getConfig
-import telegram
-
 
 class Handler():
     def __init__(self, bot: Bot):
