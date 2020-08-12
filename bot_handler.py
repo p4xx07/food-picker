@@ -23,7 +23,7 @@ class Handler():
         self.token = self.config[0]
         self.chat_id = self.config[1]
         self.gif_url = self.config[2]
-        self.potterfile = ""
+        self.potter_text = ""
 
     def handle(self, msg):
         content_type, chat_type, chat_id = telepot.glance(msg)
@@ -154,6 +154,6 @@ class Handler():
     def sendRandomPotter(self, chat_id):
         import markov
         if not self.potterfile:
-            text = markov.read_harry_potter()
-            self.potterfile = markov.generate_text(text)
-        self.sendTextMessage(chat_id, self.potterfile)
+            self.potter_text = markov.read_harry_potter()
+        potter_file = markov.generate_text(self.potter_text)
+        self.sendTextMessage(chat_id, potter_file)
