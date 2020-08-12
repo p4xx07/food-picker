@@ -13,8 +13,6 @@ from telepot.loop import MessageLoop
 from restaurant import RestaurantFactory
 from exclamation import ExclamationFactory
 from config import getConfig
-import telegram
-
 
 class Handler():
     def __init__(self, bot: Bot):
@@ -58,6 +56,8 @@ class Handler():
             self.sendRandomJoke(chat_id)
         elif '/tree' in message:
             self.sendRandomTree(chat_id)
+        elif '/potter' in message:
+            self.sendRandomPotter(chat_id)
         else:
             self.sendExclamation(chat_id)
     
@@ -149,3 +149,9 @@ class Handler():
         file = open(path, 'rb')
         self.bot.sendDocument(chat_id, document=file)
         os.remove(path)
+
+    def sendRandomPotter(self, chat_id):
+        import markov
+        text = markov.read_harry_potter()
+        potter = markov.generate_text(text)
+        self.sendTextMessage(chat_id, potter)
