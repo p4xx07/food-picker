@@ -153,7 +153,7 @@ class Handler():
 
     def sendRandomPotter(self, chat_id):
         import markov
-        if not self.potterfile:
+        if not self.potter_text:
             self.potter_text = markov.read_harry_potter()
         potter_file = markov.generate_text(self.potter_text)
         self.sendTextMessage(chat_id, potter_file)
