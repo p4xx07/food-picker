@@ -11,7 +11,7 @@ def generate_text(input):
     manager = Manager(input)
     finalString = ""
     output = manager.generate_first_output()
-    for i in range(0, 300):
+    for i in range(0, 150):
         if output and len(output.strip()) > 0:
             if not finalString:
                 finalString = output
