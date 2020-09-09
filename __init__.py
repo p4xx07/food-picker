@@ -15,7 +15,7 @@ def start(bot: Bot):
     while True:
         if canSendFoodGif():
             handler.sendFoodGif()
-        time.sleep(15)
+        time.sleep(30)
 
 def canSendFoodGif() -> bool:
     now = datetime.datetime.now()

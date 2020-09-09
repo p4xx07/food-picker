@@ -90,9 +90,10 @@ class Handler():
         if int(video["duration"]) < end:
             end = int(video["duration"])
 
-        self.bot.sendChatAction(chat_id=chat_id, action=telegram.ChatAction.UPLOAD_PHOTO)
-        download.downloadVideo(self.token, video["file_id"], r"video.mp4")
+        self.bot.sendChatAction(chat_id, "upload_video")
+        download.downloadVideo(self.token, video["file_id"], "video.mp4")
         trim.trimVideoToGif("video.mp4", start, end)
+        self.bot.sendChatAction(chat_id, "upload_video")
         self.sendTrimToGif(chat_id, "output.gif")
 
     def sendFoodGif(self):
