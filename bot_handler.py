@@ -106,20 +106,23 @@ class Handler():
         self.sendRandomAction()
 
     def sendRandomAction(self):
-        rand = randint(0, 6)
+        rand = randint(0, 5)
 
         if rand == 0:
+            self.sendTextMessage(self.chat_id, "Here's a random joke")
             self.sendRandomJoke(self.chat_id)
         elif rand == 2:
+            self.sendTextMessage(self.chat_id, "Here's a random fact")
             self.sendRandomFact(self.chat_id)
         elif rand == 3:
+            self.sendTextMessage(self.chat_id, "Here's a random meme")
             self.sendRandomMeme(self.chat_id)
-        elif rand == 4:
-            self.sendRandomJoke(self.chat_id)
         elif rand == 5:
             self.sendExclamation(self.chat_id)
+            self.sendTextMessage(self.chat_id, "Here's a random exclamation")
         elif rand == 6:
-            self.sendRandomPotter(self.chat_id)
+            self.sendTextMessage(self.chat_id, "Here's a small harry potter chapter")
+            self.sendRandomPotter(self.chat_id, 35)
 
     def sendFoodMessage(self, chat_id):
         food = self.restaurantFactory.getFood()
@@ -170,9 +173,9 @@ class Handler():
         self.bot.sendDocument(chat_id, document=file)
         os.remove(path)
 
-    def sendRandomPotter(self, chat_id):
+    def sendRandomPotter(self, chat_id, words=100):
         import markov
         if not self.potter_text:
             self.potter_text = markov.read_harry_potter()
-        potter_file = markov.generate_text(self.potter_text)
+        potter_file = markov.generate_text(self.potter_text, words)
         self.sendTextMessage(chat_id, potter_file)

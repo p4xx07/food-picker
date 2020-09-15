@@ -7,11 +7,11 @@ def read_harry_potter():
             harry_potter = harry_potter + line
     return harry_potter
 
-def generate_text(input):
+def generate_text(input, words):
     manager = Manager(input)
     finalString = ""
     output = manager.generate_first_output()
-    for i in range(0, 50):
+    for i in range(0, words):
         if output and len(output.strip()) > 0:
             if not finalString:
                 finalString = output
