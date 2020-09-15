@@ -96,10 +96,3 @@ class Manager():
         value_iterator = iter(values)
         first_state = next(value_iterator)
         return first_state.generate_first_output()
-
-
-basetext = "Il grande esempio che vinse su tutto. Il grande esempio che vinse su tutto. Il grande esempio che vinse su tutto"
-
-outtext = generate_text(basetext)
-
-print(outtext)
