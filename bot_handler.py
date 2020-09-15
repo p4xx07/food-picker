@@ -106,21 +106,21 @@ class Handler():
         self.sendRandomAction()
 
     def sendRandomAction(self):
-        rand = randint(0, 5)
+        rand = randint(0, 4)
 
         if rand == 0:
             self.sendTextMessage(self.chat_id, "Here's a random joke")
             self.sendRandomJoke(self.chat_id)
-        elif rand == 2:
+        elif rand == 1:
             self.sendTextMessage(self.chat_id, "Here's a random fact")
             self.sendRandomFact(self.chat_id)
-        elif rand == 3:
+        elif rand == 2:
             self.sendTextMessage(self.chat_id, "Here's a random meme")
             self.sendRandomMeme(self.chat_id)
-        elif rand == 5:
+        elif rand == 3:
             self.sendExclamation(self.chat_id)
             self.sendTextMessage(self.chat_id, "Here's a random exclamation")
-        elif rand == 6:
+        elif rand == 4:
             self.sendTextMessage(self.chat_id, "Here's a small harry potter chapter")
             self.sendRandomPotter(self.chat_id, 35)
 
