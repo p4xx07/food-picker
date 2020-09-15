@@ -13,6 +13,7 @@ from telepot.loop import MessageLoop
 from restaurant import RestaurantFactory
 from exclamation import ExclamationFactory
 from config import getConfig
+from random import randint
 
 class Handler():
     def __init__(self, bot: Bot):
@@ -21,8 +22,8 @@ class Handler():
         self.exclamationFactory = ExclamationFactory()
         self.config = getConfig()
         self.token = self.config[0]
-        self.chat_id = self.config[1]
-        self.gif_url = self.config[2]
+        self.gif_url = self.config[1]
+        self.chat_id = self.config[2]
         self.potter_text = ""
 
     def handle(self, msg):
@@ -101,7 +102,24 @@ class Handler():
         #self.sendFoodMessage(self.config.chat_id)
         #self.sendRandomFact(self.config.chat_id)
         #self.sendRandomMeme(self.config.chat_id)
-        self.sendRandomJoke(self.chat_id)
+        #self.sendRandomJoke(self.chat_id)
+        self.sendRandomAction()
+
+    def sendRandomAction(self):
+        rand = randint(0, 6)
+
+        if rand == 0:
+            self.sendRandomJoke(self.chat_id)
+        elif rand == 2:
+            self.sendRandomFact(self.chat_id)
+        elif rand == 3:
+            self.sendRandomMeme(self.chat_id)
+        elif rand == 4:
+            self.sendRandomJoke(self.chat_id)
+        elif rand == 5:
+            self.sendExclamation(self.chat_id)
+        elif rand == 6:
+            self.sendRandomPotter(self.chat_id)
 
     def sendFoodMessage(self, chat_id):
         food = self.restaurantFactory.getFood()

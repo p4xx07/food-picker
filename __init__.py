@@ -15,13 +15,10 @@ def start(bot: Bot):
     while True:
         if canSendFoodGif():
             handler.sendFoodGif()
-        time.sleep(30)
+        time.sleep(20)
 
 def canSendFoodGif() -> bool:
     now = datetime.datetime.now()
-    weekday = now.weekday()
-    if(weekday >= 5):
-        return False
     mid_day = datetime.datetime(now.year, now.month, now.day, 12, 30)    
     diff_seconds = (now - mid_day).total_seconds()    
     return diff_seconds > 0 and diff_seconds <= 32
