@@ -118,8 +118,8 @@ class Handler():
             self.sendTextMessage(self.chat_id, "Here's a random meme")
             self.sendRandomMeme(self.chat_id)
         elif rand == 3:
-            self.sendExclamation(self.chat_id)
             self.sendTextMessage(self.chat_id, "Here's a random exclamation")
+            self.sendExclamation(self.chat_id)
         elif rand == 4:
             self.sendTextMessage(self.chat_id, "Here's a small harry potter chapter")
             self.sendRandomPotter(self.chat_id, 35)
