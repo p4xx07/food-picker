@@ -11,6 +11,7 @@ from logger import Logger
 from telepot import Bot
 from telepot.loop import MessageLoop
 from restaurant import RestaurantFactory
+from software import SoftwareFactory
 from exclamation import ExclamationFactory
 from config import getConfig
 from random import randint
@@ -20,6 +21,7 @@ class Handler():
         self.bot = bot
         self.restaurantFactory = RestaurantFactory()
         self.exclamationFactory = ExclamationFactory()
+        self.softwareFactory = SoftwareFactory()
         self.config = getConfig()
         self.token = self.config[0]
         self.gif_url = self.config[1]
@@ -60,6 +62,8 @@ class Handler():
             self.sendRandomTree(chat_id)
         elif '/potter' in message:
             self.sendRandomPotter(chat_id)
+        elif '/software' in message:
+            self.sendRandomSoftware(chat_id)
         else:
             self.sendExclamation(chat_id)
     
@@ -106,7 +110,7 @@ class Handler():
         self.sendRandomAction()
 
     def sendRandomAction(self):
-        rand = randint(0, 4)
+        rand = randint(0, 5)
 
         if rand == 0:
             self.sendTextMessage(self.chat_id, "Here's a random joke")
@@ -123,10 +127,17 @@ class Handler():
         elif rand == 4:
             self.sendTextMessage(self.chat_id, "Here's a small harry potter chapter")
             self.sendRandomPotter(self.chat_id, 35)
+        elif rand == 5:
+            self.sendTextMessage(self.chat_id, "Here's a coding tip!")
+            self.sendRandomSoftware(self.chat_id)
 
     def sendFoodMessage(self, chat_id):
         food = self.restaurantFactory.getFood()
         self.bot.sendMessage(chat_id, food)
+
+    def sendRandomSoftware(self, chat_id):
+        software = self.softwareFactory.getSoftware()
+        self.bot.sendMessage(chat_id, software)
 
     def sendTextMessage(self, chat_id, message):
         self.bot.sendMessage(chat_id, message)
