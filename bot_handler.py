@@ -223,7 +223,7 @@ class Handler():
             lines = f.readlines()
         with open(path, "w") as f:
             for line in lines:
-                if line.strip("\n") != str(chat_id):
+                if line.strip("\n") != str(chat_id) and len(line.strip()) > 0:
                     f.write(line)
 
 
