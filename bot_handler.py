@@ -194,31 +194,44 @@ class Handler():
         self.sendTextMessage(chat_id, potter_file)
 
     def sendWater(self):
-        with open("water.txt", encoding="utf8") as f:
+        with open("/etc/food-picker/water.txt", encoding="utf8") as f:
             for line in f:
+                if len(line.strip()) == 0:
+                    continue
                 self.bot.sendVideo(line, "https://media.tenor.com/images/a7eeadb549ca8b4f725a37d4e23ff2ce/tenor.gif")
                 self.sendTextMessage(line, "Remember to drink some water!")
 
     def subscribeToWater(self, chat_id):
         found = False
-        path = "water.txt"
+        path = "/etc/food-picker/water.txt"
         with open(path, encoding="utf8") as f:
             for line in f:
-                if line == str(chat_id)
+                if line.strip() != str(chat_id):
                     continue
                 found = True
         if found:
+            self.unsubscribeFromWater(chat_id)
             return
         with open(path, 'a') as f:
-            file.write(chat_id)
+            f.write('\n' + str(chat_id))
         self.sendTextMessage(chat_id, "Subscribed to water reminder")
 
-    def unsubscribeToWater(self, chat_id):
-        path = "water.txt"
+    def unsubscribeFromWater(self, chat_id):
+        path = "/etc/food-picker/water.txt"
         content = ""
-        with open(path, encoding="utf8") as f:
-            for line in f:
-                content = content + line + '\n'
-        with open(path, encoding="utf8") as f:
-            f.write(content)
+        with open(path, "r" ) as f:
+            lines = f.readlines()
+        with open(path, "w") as f:
+            for line in lines:
+                if line.strip("\n") != str(chat_id):
+                    f.write(line)
+
+
+
+
+
+
+
+
+
         self.sendTextMessage(chat_id, "Unsubscribed to water reminder")
