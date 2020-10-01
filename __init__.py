@@ -11,11 +11,15 @@ from config import getConfig
 def start(bot: Bot):
     handler = Handler(bot)
     MessageLoop(bot, handler.handle).run_as_thread()
-
+    seconds = 0
     while True:
         if canSendFoodGif():
             handler.sendFoodGif()
         time.sleep(30)
+        seconds = seconds + 30
+        if seconds >= 30:
+            handler.sendWater()
+            seconds = 0
 
 def canSendFoodGif() -> bool:
     now = datetime.datetime.now()

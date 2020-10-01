@@ -64,6 +64,8 @@ class Handler():
             self.sendRandomPotter(chat_id)
         elif '/software' in message:
             self.sendRandomSoftware(chat_id)
+        elif '/water' in message:
+            self.subscribeToWater(chat_id)
         else:
             self.sendExclamation(chat_id)
     
@@ -190,3 +192,33 @@ class Handler():
             self.potter_text = markov.read_harry_potter()
         potter_file = markov.generate_text(self.potter_text, words)
         self.sendTextMessage(chat_id, potter_file)
+
+    def sendWater(self):
+        with open("water.txt", encoding="utf8") as f:
+            for line in f:
+                self.bot.sendVideo(line, "https://media.tenor.com/images/a7eeadb549ca8b4f725a37d4e23ff2ce/tenor.gif")
+                self.sendTextMessage(line, "Remember to drink some water!")
+
+    def subscribeToWater(self, chat_id):
+        found = False
+        path = "water.txt"
+        with open(path, encoding="utf8") as f:
+            for line in f:
+                if line == str(chat_id)
+                    continue
+                found = True
+        if found:
+            return
+        with open(path, 'a') as f:
+            file.write(chat_id)
+        self.sendTextMessage(chat_id, "Subscribed to water reminder")
+
+    def unsubscribeToWater(self, chat_id):
+        path = "water.txt"
+        content = ""
+        with open(path, encoding="utf8") as f:
+            for line in f:
+                content = content + line + '\n'
+        with open(path, encoding="utf8") as f:
+            f.write(content)
+        self.sendTextMessage(chat_id, "Unsubscribed to water reminder")
