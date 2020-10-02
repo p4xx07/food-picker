@@ -11,7 +11,7 @@ from config import getConfig
 def start(bot: Bot):
     handler = Handler(bot)
     MessageLoop(bot, handler.handle).run_as_thread()
-    hour = int(datetime.datetime.now().hour)
+    hour = -1 
     while True:
         if canSendFoodGif():
             handler.sendFoodGif()

@@ -225,13 +225,4 @@ class Handler():
             for line in lines:
                 if line.strip("\n") != str(chat_id) and len(line.strip()) > 0:
                     f.write(line)
-
-
-
-
-
-
-
-
-
         self.sendTextMessage(chat_id, "Unsubscribed to water reminder")
