@@ -13,6 +13,7 @@ from telepot.loop import MessageLoop
 from restaurant import RestaurantFactory
 from software import SoftwareFactory
 from exclamation import ExclamationFactory
+from answer import AnswerFactory
 from config import getConfig
 from random import randint
 
@@ -22,6 +23,7 @@ class Handler():
         self.restaurantFactory = RestaurantFactory()
         self.exclamationFactory = ExclamationFactory()
         self.softwareFactory = SoftwareFactory()
+        self.answerFactory = AnswerFactory()
         self.config = getConfig()
         self.token = self.config[0]
         self.gif_url = self.config[1]
@@ -47,8 +49,6 @@ class Handler():
             self.sendFoodMessage(chat_id)
         elif '/fact' in message:
             self.sendRandomFact(chat_id)
-        elif '/meme' in message:
-            self.sendRandomMeme(chat_id)
         elif '/roll' in message:
             num = re.search(r"\d+", message)
             if num is None:
@@ -66,6 +66,8 @@ class Handler():
             self.sendRandomSoftware(chat_id)
         elif '/water' in message:
             self.subscribeToWater(chat_id)
+        elif '/answer' in message:
+            self.sendRandomAnswer(chat_id)
         else:
             self.sendExclamation(chat_id)
     
@@ -112,7 +114,7 @@ class Handler():
         self.sendRandomAction()
 
     def sendRandomAction(self):
-        rand = randint(0, 5)
+        rand = randint(0, 4)
 
         if rand == 0:
             self.sendTextMessage(self.chat_id, "Here's a random joke")
@@ -121,15 +123,12 @@ class Handler():
             self.sendTextMessage(self.chat_id, "Here's a random fact")
             self.sendRandomFact(self.chat_id)
         elif rand == 2:
-            self.sendTextMessage(self.chat_id, "Here's a random meme")
-            self.sendRandomMeme(self.chat_id)
-        elif rand == 3:
             self.sendTextMessage(self.chat_id, "Here's a random exclamation")
             self.sendExclamation(self.chat_id)
-        elif rand == 4:
+        elif rand == 3:
             self.sendTextMessage(self.chat_id, "Here's a small harry potter chapter")
             self.sendRandomPotter(self.chat_id, 35)
-        elif rand == 5:
+        elif rand == 4:
             self.sendTextMessage(self.chat_id, "Here's a coding tip!")
             self.sendRandomSoftware(self.chat_id)
 
@@ -140,6 +139,10 @@ class Handler():
     def sendRandomSoftware(self, chat_id):
         software = self.softwareFactory.getSoftware()
         self.bot.sendMessage(chat_id, software)
+
+    def sendRandomAnswer(self, chat_id):
+        answer = self.answerFactory.getAnswer()
+        self.bot.sendMessage(chat_id, answer)
 
     def sendTextMessage(self, chat_id, message):
         self.bot.sendMessage(chat_id, message)

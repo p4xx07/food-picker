@@ -19,7 +19,7 @@ def start(bot: Bot):
         if  hour < now_hour and now_hour >= 9 and now_hour <= 21:
             hour = now_hour
             handler.sendWater()
-        time.sleep(30)
+        time.sleep(32)
 
 def canSendFoodGif() -> bool:
     now = datetime.datetime.now()
