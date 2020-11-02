@@ -114,7 +114,7 @@ class Handler():
         self.sendRandomAction()
 
     def sendRandomAction(self):
-        rand = randint(0, 4)
+        rand = randint(0, 3)
 
         if rand == 0:
             self.sendTextMessage(self.chat_id, "Here's a random joke")
@@ -123,12 +123,9 @@ class Handler():
             self.sendTextMessage(self.chat_id, "Here's a random fact")
             self.sendRandomFact(self.chat_id)
         elif rand == 2:
-            self.sendTextMessage(self.chat_id, "Here's a random exclamation")
-            self.sendExclamation(self.chat_id)
-        elif rand == 3:
             self.sendTextMessage(self.chat_id, "Here's a small harry potter chapter")
-            self.sendRandomPotter(self.chat_id, 35)
-        elif rand == 4:
+            self.sendRandomPotter(self.chat_id, 50)
+        elif rand == 3:
             self.sendTextMessage(self.chat_id, "Here's a coding tip!")
             self.sendRandomSoftware(self.chat_id)
 
