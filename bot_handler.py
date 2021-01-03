@@ -16,7 +16,8 @@ from exclamation import ExclamationFactory
 from answer import AnswerFactory
 from config import getConfig
 from random import randint
-
+from PIL import Image
+import json
 class Handler():
     def __init__(self, bot: Bot):
         self.bot = bot
@@ -32,9 +33,11 @@ class Handler():
 
     def handle(self, msg):
         content_type, chat_type, chat_id = telepot.glance(msg)
-        
+
         if content_type == 'text':          
             self.textMessage(msg)
+        if content_type == 'photo':          
+            self.saveImage(msg)
         elif content_type == 'video':
             self.videoMessage(msg)
         else:
@@ -71,8 +74,17 @@ class Handler():
         else:
             self.sendExclamation(chat_id)
     
-    def videoMessage(self, msg):
+    def saveImage(self, msg):
+        chat_id = msg['chat']['id']
+        infile = msg['photo']
+        urlpath = self.bot.getFile(infile[-1]['file_id'])
+        print(str(json.dumps(urlpath)))
+        os.system('wget --no-check-certificate  ' + 'https://api.telegram.org/file/bot' + self.token + '\/' + urlpath['file_path'])
+        filename = urlpath['file_path'].split('/')[-1]
+        os.system('mv ' + filename + ' /home/pi/Pictures/')
+        self.sendTextMessage(chat_id, filename)
 
+    def videoMessage(self, msg):
         chat_id = msg['chat']['id']
         video = msg['video']
 
