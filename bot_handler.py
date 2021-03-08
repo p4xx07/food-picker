@@ -7,6 +7,7 @@ import meme
 import os
 import trim
 import re
+import dante
 from logger import Logger
 from telepot import Bot
 from telepot.loop import MessageLoop
@@ -18,6 +19,7 @@ from config import getConfig
 from random import randint
 from PIL import Image
 import json
+
 class Handler():
     def __init__(self, bot: Bot):
         self.bot = bot
@@ -36,7 +38,7 @@ class Handler():
 
         if content_type == 'text':          
             self.textMessage(msg)
-        if content_type == 'photo':          
+        elif content_type == 'photo':          
             self.saveImage(msg)
         elif content_type == 'video':
             self.videoMessage(msg)
@@ -71,6 +73,8 @@ class Handler():
             self.subscribeToWater(chat_id)
         elif '/answer' in message:
             self.sendRandomAnswer(chat_id)
+        elif '/dante' in message:
+            self.sendDante(chat_id)
         else:
             self.sendExclamation(chat_id)
     
@@ -123,10 +127,18 @@ class Handler():
         #self.sendRandomFact(self.config.chat_id)
         #self.sendRandomMeme(self.config.chat_id)
         #self.sendRandomJoke(self.chat_id)
-        self.sendRandomAction()
+        #self.sendRandomAction()
+        self.sendDante(self.chat_id)
+
+    def sendDante(self, chat_id):
+        (word, subword, verse, description) = dante.getDante()
+        phrase = f'*{word}*\n{subword}\n\n_{verse}_'
+        self.bot.sendMessage(chat_id, "Parola del giorno\n")
+        self.bot.sendMessage(chat_id, phrase, parse_mode= 'Markdown')
+        self.bot.sendMessage(chat_id, description)
 
     def sendRandomAction(self):
-        rand = randint(0, 3)
+        rand = randint(0, 1)
 
         if rand == 0:
             self.sendTextMessage(self.chat_id, "Here's a random joke")
@@ -134,12 +146,6 @@ class Handler():
         elif rand == 1:
             self.sendTextMessage(self.chat_id, "Here's a random fact")
             self.sendRandomFact(self.chat_id)
-        elif rand == 2:
-            self.sendTextMessage(self.chat_id, "Here's a small harry potter chapter")
-            self.sendRandomPotter(self.chat_id, 50)
-        elif rand == 3:
-            self.sendTextMessage(self.chat_id, "Here's a coding tip!")
-            self.sendRandomSoftware(self.chat_id)
 
     def sendFoodMessage(self, chat_id):
         food = self.restaurantFactory.getFood()
