@@ -128,12 +128,12 @@ class Handler():
         #self.sendRandomMeme(self.config.chat_id)
         #self.sendRandomJoke(self.chat_id)
         #self.sendRandomAction()
+        self.bot.sendMessage(chat_id, "Parola del giorno")
         self.sendDante(self.chat_id)
 
     def sendDante(self, chat_id):
         (word, subword, verse, description) = dante.getDante()
         phrase = f'*{word}*\n{subword}\n\n_{verse}_'
-        self.bot.sendMessage(chat_id, "Parola del giorno\n")
         self.bot.sendMessage(chat_id, phrase, parse_mode= 'Markdown')
         self.bot.sendMessage(chat_id, description)
 
