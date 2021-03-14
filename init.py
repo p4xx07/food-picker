@@ -19,7 +19,6 @@ fact_handler = CommandHandler('fact', handler.fact)
 unknown_handler = MessageHandler(Filters.command, handler.unknown)
 
 dispatcher = updater.dispatcher
-dispatcher.add_handler(start_handler)
 dispatcher.add_handler(dante_handler)
 dispatcher.add_handler(answer_handler)
 dispatcher.add_handler(software_handler)
