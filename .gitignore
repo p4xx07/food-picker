@@ -4,3 +4,5 @@ img
 *.avi
 *.gif
 /log
+__pycache__
+*pycache*

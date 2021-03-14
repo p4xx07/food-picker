@@ -1,4 +1,5 @@
 from random import randint
+potter_text = None
 
 def read_harry_potter():
     harry_potter = ""
@@ -20,6 +21,11 @@ def generate_text(input, words):
         output = manager.generate_output(output)
     return finalString
 
+def get_potter(count):
+    global potter_text
+    if not potter_text:
+        potter_text = read_harry_potter()
+    return generate_text(potter_text, count)
 
 class State:
     def __init__(self, key):

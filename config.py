@@ -1,4 +1,5 @@
 import os
+
 def readConfig(path) -> {}:
     d = {}
     with open(path) as f:
@@ -7,7 +8,7 @@ def readConfig(path) -> {}:
             d[key] = val.replace('\n', '')
     return d
 
-def getConfig(): 
+def get(): 
     config_path = "/etc/food-picker/config.dat"
 
     if os.name == 'nt':
