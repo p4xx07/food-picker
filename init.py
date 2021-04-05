@@ -9,6 +9,10 @@ from telegram.ext import Updater
 updater = Updater(token=token)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
+js_handler = CommandHandler('js', handler.js)
+csharp_handler = CommandHandler('csharp', handler.csharp)
+c_handler = CommandHandler('c', handler.c)
+python3_handler = CommandHandler('python3', handler.python3)
 dante_handler = CommandHandler('dante', handler.dante)
 answer_handler = CommandHandler('answer', handler.answer)
 software_handler = CommandHandler('software', handler.software)
@@ -19,6 +23,10 @@ fact_handler = CommandHandler('fact', handler.fact)
 unknown_handler = MessageHandler(Filters.command, handler.unknown)
 
 dispatcher = updater.dispatcher
+dispatcher.add_handler(js_handler)
+dispatcher.add_handler(csharp_handler)
+dispatcher.add_handler(c_handler)
+dispatcher.add_handler(python3_handler)
 dispatcher.add_handler(dante_handler)
 dispatcher.add_handler(answer_handler)
 dispatcher.add_handler(software_handler)

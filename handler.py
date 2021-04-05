@@ -10,6 +10,27 @@ import roll as Roll
 import joke as Joke
 import fact as Fact
 import exclamation as Exclamation
+import piston as Piston
+
+def js(update, context):
+    code = update.message.text.replace("/js", "").strip()
+    result = Piston.execute_js(code)
+    context.bot.send_message(chat_id=update.effective_chat.id, text=result)
+
+def c(update, context):
+    code = update.message.text.replace("/c", "").strip()
+    result = Piston.execute_c(code)
+    context.bot.send_message(chat_id=update.effective_chat.id, text=result)
+
+def csharp(update, context):
+    code = update.message.text.replace("/csharp", "").strip()
+    result = Piston.execute_csharp(code)
+    context.bot.send_message(chat_id=update.effective_chat.id, text=result)
+
+def python3(update, context):
+    code = update.message.text.replace("/python3", "").strip()
+    result = Piston.execute_python3(code)
+    context.bot.send_message(chat_id=update.effective_chat.id, text=result)
 
 def dante(update, context): 
     phrase = Dante.get()
