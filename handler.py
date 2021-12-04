@@ -13,22 +13,22 @@ import exclamation as Exclamation
 import piston as Piston
 
 def js(update, context):
-    code = update.message.text.replace("/js", "").strip()
+    code = update.message.text.replace("/js", "").replace("@gogo_gadjet_bot", "").strip()
     result = Piston.execute_js(code)
     context.bot.send_message(chat_id=update.effective_chat.id, text=result)
 
 def c(update, context):
-    code = update.message.text.replace("/c", "").strip()
+    code = update.message.text.replace("/c", "").replace("@gogo_gadjet_bot", "").strip()
     result = Piston.execute_c(code)
     context.bot.send_message(chat_id=update.effective_chat.id, text=result)
 
 def csharp(update, context):
-    code = update.message.text.replace("/csharp", "").strip()
+    code = update.message.text.replace("/csharp", "").replace("@gogo_gadjet_bot", "").strip()
     result = Piston.execute_csharp(code)
     context.bot.send_message(chat_id=update.effective_chat.id, text=result)
 
 def python3(update, context):
-    code = update.message.text.replace("/python3", "").strip()
+    code = update.message.text.replace("/python3", "").replace("@gogo_gadjet_bot", "").strip()
     result = Piston.execute_python3(code)
     context.bot.send_message(chat_id=update.effective_chat.id, text=result)
 
@@ -61,6 +61,10 @@ def joke(update, context):
     text = Joke.get()
     context.bot.send_message(chat_id=update.effective_chat.id, text=text)
 
+def reply(update, context):
+    text = Exclamation.get()
+    context.bot.send_message(chat_id=update.effective_chat.id, text=text)
+
 def fact(update, context): 
     text = Fact.get()
     context.bot.send_message(chat_id=update.effective_chat.id, text=text)
@@ -74,8 +78,12 @@ def test_food_gif(bot, gif):
     
 def send_food_gif(bot, gif, chat_id):
     bot.send_animation(chat_id=chat_id, animation=gif)
-    phrase = Dante.get()
-    bot.send_message(chat_id=chat_id, text=phrase, parse_mode='Markdown')
+    joke = Joke.get()
+    bot.send_message(chat_id=chat_id, text=joke, parse_mode='Markdown')
+
+def forward_to_group(update, context):
+    text = update.message.text.replace("/forward_to_group", "").replace("@gogo_gadjet_bot", "")
+    context.bot.send_message(chat_id=-283832797, text=text) 
 
 def restarted(bot):
     bot.send_message(chat_id=146470365, text="Restarted!")

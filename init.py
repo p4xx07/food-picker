@@ -20,7 +20,9 @@ potter_handler = CommandHandler('potter', handler.potter)
 roll_handler = CommandHandler('roll', handler.roll)
 joke_handler = CommandHandler('joke', handler.joke)
 fact_handler = CommandHandler('fact', handler.fact)
+forward_to_group = CommandHandler('forward_to_group', handler.forward_to_group)
 unknown_handler = MessageHandler(Filters.command, handler.unknown)
+reply_handler = MessageHandler(Filters.text & (~Filters.command), handler.reply)
 
 dispatcher = updater.dispatcher
 dispatcher.add_handler(js_handler)
@@ -34,12 +36,14 @@ dispatcher.add_handler(potter_handler)
 dispatcher.add_handler(roll_handler)
 dispatcher.add_handler(joke_handler)
 dispatcher.add_handler(fact_handler)
+dispatcher.add_handler(forward_to_group)
+dispatcher.add_handler(reply_handler)
 dispatcher.add_handler(unknown_handler)
 
 updater.start_polling()
 
 handler.restarted(updater.bot)
-handler.reminder(updater.bot, gif, chat_id)
+#handler.reminder(updater.bot, gif, chat_id)
 
 updater.idle()
 
