@@ -52,7 +52,7 @@ def potter(update, context):
 
 def speech(update, context): 
     audio = context.bot.get_file(update.message.voice.file_id)
-    if audio["file_size"]:
+    if audio["file_size"] > 1024 * 1024:
         context.bot.send_message(chat_id=update.effective_chat.id, text="Media too big")
         return
     filename = Download.save_audio(audio["file_path"])
