@@ -23,6 +23,7 @@ fact_handler = CommandHandler('fact', handler.fact)
 forward_to_group = CommandHandler('forward_to_group', handler.forward_to_group)
 unknown_handler = MessageHandler(Filters.command, handler.unknown)
 reply_handler = MessageHandler(Filters.text & (~Filters.command), handler.reply)
+speech_handler = MessageHandler(Filters.voice & (~Filters.command), handler.speech)
 
 dispatcher = updater.dispatcher
 dispatcher.add_handler(js_handler)
@@ -38,6 +39,7 @@ dispatcher.add_handler(joke_handler)
 dispatcher.add_handler(fact_handler)
 dispatcher.add_handler(forward_to_group)
 dispatcher.add_handler(reply_handler)
+dispatcher.add_handler(speech_handler)
 dispatcher.add_handler(unknown_handler)
 
 updater.start_polling()

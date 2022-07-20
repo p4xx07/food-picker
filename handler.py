@@ -1,7 +1,9 @@
-import os, inspect
+import os
 import datetime
 import time
 
+import download as Download
+import speech_to_text as Speech
 import dante as Dante
 import answer as Answer
 import software as Software
@@ -46,6 +48,16 @@ def software(update, context):
 
 def potter(update, context): 
     text = Markov.get_potter(50)
+    context.bot.send_message(chat_id=update.effective_chat.id, text=text)
+
+def speech(update, context): 
+    audio = context.bot.get_file(update.message.voice.file_id)
+    if audio["file_size"]:
+        context.bot.send_message(chat_id=update.effective_chat.id, text="Media too big")
+        return
+    filename = Download.save_audio(audio["file_path"])
+    text = Speech.speech_to_text(filename)
+    os.remove(filename)
     context.bot.send_message(chat_id=update.effective_chat.id, text=text)
 
 def roll(update, context): 
