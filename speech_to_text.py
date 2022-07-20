@@ -8,5 +8,6 @@ def speech_to_text(audioPath: str, language: str = "it-IT"):
             text = r.recognize_google(audio_text, language=language)
             print('Converting audio transcripts into text ...')
             return text
-        except:
+        except Exception as e:
+            print(e)
             return "Could not convert the speech"
