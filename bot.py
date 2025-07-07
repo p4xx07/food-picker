@@ -1,13 +1,14 @@
-import config
 import handler
+import os
 import logging
 from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
 from telegram.ext import Updater
 
-(token, gif, chat_id) = config.get()
+token = os.getenv("TOKEN")
 updater = Updater(token=token)
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 js_handler = CommandHandler('js', handler.js)
 csharp_handler = CommandHandler('csharp', handler.csharp)
@@ -22,8 +23,10 @@ joke_handler = CommandHandler('joke', handler.joke)
 fact_handler = CommandHandler('fact', handler.fact)
 forward_to_group = CommandHandler('forward_to_group', handler.forward_to_group)
 unknown_handler = MessageHandler(Filters.command, handler.unknown)
-reply_handler = MessageHandler(Filters.text & (~Filters.command), handler.reply)
-speech_handler = MessageHandler(Filters.voice & (~Filters.command), handler.speech)
+reply_handler = MessageHandler(
+    Filters.text & (~Filters.command), handler.reply)
+speech_handler = MessageHandler(
+    Filters.voice & (~Filters.command), handler.speech)
 
 dispatcher = updater.dispatcher
 dispatcher.add_handler(js_handler)
@@ -45,7 +48,6 @@ dispatcher.add_handler(unknown_handler)
 updater.start_polling()
 
 handler.restarted(updater.bot)
-#handler.reminder(updater.bot, gif, chat_id)
+# handler.reminder(updater.bot, gif, chat_id)
 
 updater.idle()
-

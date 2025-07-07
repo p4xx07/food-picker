@@ -1,5 +1,5 @@
 import requests
-import json
+
 
 def get():
     headers = {"Accept": "text/plain"}

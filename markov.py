@@ -1,12 +1,14 @@
 from random import randint
 potter_text = None
 
+
 def read_harry_potter():
     harry_potter = ""
     with open("/etc/food-picker/harrypotter.txt", encoding="utf8") as f:
         for line in f:
             harry_potter = harry_potter + line
     return harry_potter
+
 
 def generate_text(input, words):
     manager = Manager(input)
@@ -21,11 +23,13 @@ def generate_text(input, words):
         output = manager.generate_output(output)
     return finalString
 
+
 def get_potter(count):
     global potter_text
     if not potter_text:
         potter_text = read_harry_potter()
     return generate_text(potter_text, count)
+
 
 class State:
     def __init__(self, key):
